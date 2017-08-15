@@ -9,7 +9,8 @@ public class App
 
     public void run() {
         String productName = "3D-Map";
-        String report = (new ProductManager()).report(productName);
-        System.out.println(report);
+        Manager manager = new ProductManager();
+        String progress = manager.queryProgress(productName);
+        System.out.println(progress);
     }
 }
