@@ -1,16 +1,16 @@
 package practice.spring.sprice;
 
-public class App
-{
-    public static void main( String[] args )
-    {
-        (new App()).run();
-    }
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-    public void run() {
-        String productName = "3D-Map";
-        Manager manager = new ProductManager();
-        String progress = manager.queryProgress(productName);
+public class App {
+    public static final String PRODUCT_NAME = "3D-Map";
+
+    public static void main(String[] args) {
+        String xmlPath = "context/ApplicationContext.xml";
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(xmlPath);
+        Manager manager = (Manager)applicationContext.getBean("productManager");
+        String progress = manager.queryProgress(PRODUCT_NAME);
         System.out.println(progress);
     }
 }
