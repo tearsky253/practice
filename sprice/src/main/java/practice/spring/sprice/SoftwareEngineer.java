@@ -6,6 +6,6 @@ public class SoftwareEngineer implements Engineer {
     @Override
     public String reportProgress(String productName) {
         int progress = (new RandomDataGenerator()).nextInt(1, 100);
-        return String.format("product=%s, progress=%d%%", productName, progress);
+        return String.format("%d%%", progress);
     }
 }

@@ -13,8 +13,11 @@
 
     <bean id="softwareEngineer" class="practice.spring.sprice.SoftwareEngineer">
     </bean>
+    <bean id="assistant" class="practice.spring.sprice.Assistant">
+    </bean>
     <bean id="productManager" class="practice.spring.sprice.ProductManager">
         <property name="engineer" ref="softwareEngineer" />
+        <property name="assistant" ref="assistant" />
     </bean>
 
 </beans>
