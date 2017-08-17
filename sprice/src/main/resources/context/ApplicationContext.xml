@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:context="http://www.springframework.org/schema/context"
     xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop
-        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <bean id="softwareEngineer" class="practice.spring.sprice.SoftwareEngineer">
     </bean>
@@ -17,7 +20,15 @@
     </bean>
     <bean id="productManager" class="practice.spring.sprice.ProductManager">
         <property name="engineer" ref="softwareEngineer" />
-        <property name="assistant" ref="assistant" />
     </bean>
+
+    <aop:config>
+        <aop:pointcut id="queryProgress"
+            expression="execution(* practice.spring.sprice.ProductManager.queryProgress(..))"/>
+        <aop:aspect ref="assistant">
+            <aop:after-returning method="afterQueryProgress" pointcut-ref="queryProgress"
+                returning="progress" arg-names="joinPoint, progress"/>
+        </aop:aspect>
+    </aop:config>
 
 </beans>
